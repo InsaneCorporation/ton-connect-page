@@ -1,0 +1,23 @@
+{
+  "101": {
+    "name": "DJ Flamme",
+    "likes": 0,
+    "voters": [],
+    "avatar_url": "https://cdn.example.com/dj_flamme.jpg",
+    "bio": "Techno enflammée & groove hypnotique."
+  },
+  "102": {
+    "name": "Kitsune",
+    "likes": 0,
+    "voters": [],
+    "avatar_url": "https://cdn.example.com/kitsune.jpg",
+    "bio": "Ambassadrice de la house lunaire et du son Tokyo underground."
+  },
+  "103": {
+    "name": "DJ Nyx",
+    "likes": 0,
+    "voters": [],
+    "avatar_url": "https://cdn.example.com/dj_nyx.jpg",
+    "bio": "Rythmes sombres & trance mystique pour nuits sans fin."
+  }
+}
