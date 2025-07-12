@@ -5,5 +5,5 @@
   const tg = Telegram.WebApp;
   const user = tg.initDataUnsafe.user;
 
-  console.log("👤 User connecté :", user);
+  console.log("👤 Utilisateur connecté :", user?.first_name, user?.id);
 </script>
