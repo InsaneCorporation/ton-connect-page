@@ -1,0 +1,9 @@
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  Telegram.WebApp.ready();
+
+  const tg = Telegram.WebApp;
+  const user = tg.initDataUnsafe.user;
+
+  console.log("👤 User connecté :", user);
+</script>
