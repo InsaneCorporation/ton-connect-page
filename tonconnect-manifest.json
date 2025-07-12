@@ -4,6 +4,6 @@
   "url": "https://insanecorporation.github.io/ton-connect-page/ton-connect.html",
   "icon_url": "https://insanecorporation.github.io/ton-connect-page/icon.png",
   "bridge_url": "https://bridge.tonapi.io/bridge",
-  "terms_of_use_url": "https://insanecorporation.xyz/terms",
-  "privacy_policy_url": "https://insanecorporation.xyz/privacy"
+  "terms_of_use_url": "https://insanecorporation.github.io/ton-connect-page/terms.html",
+  "privacy_policy_url": "https://insanecorporation.github.io/ton-connect-page/privacy.html"
 }
