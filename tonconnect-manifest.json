@@ -1,8 +1,8 @@
 {
   "manifest_version": "0.0.1",
   "name": "Insane Nights & Days",
-  "url": "https://ton-connect-page.github.io",
-  "icon_url": "https://ton-connect-page.github.io/icon-ton.png",
+  "url": "https://insanecorporation.github.io/ton-connect-page",
+  "icon_url": "https://insanecorporation.github.io/ton-connect-page/icon.png",
   "bridge_url": "https://bridge.tonapi.io/bridge",
   "terms_of_use_url": "https://insanecorporation.xyz/terms",
   "privacy_policy_url": "https://insanecorporation.xyz/privacy"
