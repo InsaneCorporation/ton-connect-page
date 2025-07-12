@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connect your TON Wallet</title>
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+</head>
+<body style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#0e0e0e;color:white;">
+
+  <h1>🎧 Insane Nights & Days</h1>
+  <p>Connecte ton wallet TON pour commencer à raver !</p>
+
+  <div id="ton-connect-button"></div>
+
+  <script>
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: "https://insanecorporation.github.io/ton-connect-page/tonconnect-manifest.json",
+      buttonRootId: "ton-connect-button"
+    });
+  </script>
+
+</body>
+</html>
