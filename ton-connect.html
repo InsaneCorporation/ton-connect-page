@@ -12,7 +12,6 @@
   <p>Connecte ton wallet TON pour commencer à raver !</p>
 
   <div id="ton-connect-button"></div>
-
   <p id="status"></p>
 
   <script>
@@ -21,42 +20,21 @@
       buttonRootId: "ton-connect-button"
     });
 
-    // Attente de la connexion
     tonConnectUI.onStatusChange(async (wallet) => {
       if (wallet) {
         const address = wallet.account.address;
         document.getElementById("status").textContent = `✅ Wallet connecté : ${address}`;
 
-        // Envoi automatique à Telegram WebApp si présent
         if (window.Telegram && Telegram.WebApp) {
           Telegram.WebApp.ready();
           Telegram.WebApp.sendData(address);
+          console.log("🔗 Adresse envoyée à Telegram :", address);
+          Telegram.WebApp.close(); // facultatif
         }
       } else {
         document.getElementById("status").textContent = "❌ Wallet non connecté";
       }
     });
   </script>
- <script type="module">
-  import { TonConnect } from "@tonconnect/sdk";
-
-  const connector = new TonConnect({
-    manifestUrl: "https://insanenightsanddays.netlify.app/tonconnect-manifest.json"
-  });
-
-  connector.restoreConnection().then(async () => {
-    if (connector.connected) {
-      const walletAddress = connector.account.address;
-      console.log("Wallet connecté :", walletAddress);
-
-      // Envoie au bot Telegram (MiniApp)
-      if (window.Telegram && window.Telegram.WebApp) {
-        Telegram.WebApp.sendData(walletAddress);
-        Telegram.WebApp.close(); // facultatif
-      }
-    }
-  });
-</script>
-
 </body>
 </html>
