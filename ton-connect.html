@@ -37,6 +37,26 @@
       }
     });
   </script>
+ <script type="module">
+  import { TonConnect } from "@tonconnect/sdk";
+
+  const connector = new TonConnect({
+    manifestUrl: "https://insanenightsanddays.netlify.app/tonconnect-manifest.json"
+  });
+
+  connector.restoreConnection().then(async () => {
+    if (connector.connected) {
+      const walletAddress = connector.account.address;
+      console.log("Wallet connecté :", walletAddress);
+
+      // Envoie au bot Telegram (MiniApp)
+      if (window.Telegram && window.Telegram.WebApp) {
+        Telegram.WebApp.sendData(walletAddress);
+        Telegram.WebApp.close(); // facultatif
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
