@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Connect your TON Wallet</title>
+  <title>Connect TON Wallet</title>
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 </head>
 <body style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#0e0e0e;color:white;">
@@ -13,10 +13,28 @@
 
   <div id="ton-connect-button"></div>
 
+  <p id="status"></p>
+
   <script>
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-      manifestUrl: "https://insanecorporation.github.io/ton-connect-page/tonconnect-manifest.json",
+      manifestUrl: "https://insanecorporation.github.io/ton-connect-page/tonconnect-manifest.json?v=" + Date.now(),
       buttonRootId: "ton-connect-button"
+    });
+
+    // Attente de la connexion
+    tonConnectUI.onStatusChange(async (wallet) => {
+      if (wallet) {
+        const address = wallet.account.address;
+        document.getElementById("status").textContent = `✅ Wallet connecté : ${address}`;
+
+        // Envoi automatique à Telegram WebApp si présent
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.ready();
+          Telegram.WebApp.sendData(address);
+        }
+      } else {
+        document.getElementById("status").textContent = "❌ Wallet non connecté";
+      }
     });
   </script>
 
