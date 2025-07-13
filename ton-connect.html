@@ -3,51 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Connect Wallet Telegram</title>
-  <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
+  <title>Connect TON Wallet</title>
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 </head>
-<body style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0e0e0e;color:#fff;font-family:sans-serif;">
+<body style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#0e0e0e;color:white;">
+
   <h1>🎧 Insane Nights & Days</h1>
-  <p>Connecte ton Wallet Telegram pour commencer</p>
+  <p>Connecte ton wallet TON pour commencer à raver !</p>
 
-  <button id="connectBtn" style="padding:12px 24px;font-size:16px;background:#28c1f5;border:none;border-radius:8px;cursor:pointer;color:#fff;">
-    Connecter mon Wallet Telegram
-  </button>
+  <div id="ton-connect-button"></div>
 
-  <p id="status" style="margin-top:20px;font-size:14px;"></p>
+  <p id="status"></p>
 
   <script>
-    const manifestUrl = "https://insanenightsanddays.netlify.app/tonconnect-manifest.json";
-
-    const tonConnect = new TON_CONNECT.TonConnect({
-      manifestUrl
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: "https://insanenightsanddays.netlify.app/tonconnect-manifest.json?v=" + Date.now(),
+      buttonRootId: "ton-connect-button"
     });
 
-    document.getElementById("connectBtn").addEventListener("click", async () => {
-      try {
-        await tonConnect.connect({
-          universalLink: "https://t.me/wallet/start",
-          bridgeUrl: "https://bridge.tonapi.io/bridge"
-        });
+    // Attente de la connexion
+    tonConnectUI.onStatusChange(async (wallet) => {
+      if (wallet) {
+        const address = wallet.account.address;
+        document.getElementById("status").textContent = `✅ Wallet connecté : ${address}`;
 
-        const walletInfo = tonConnect.account;
-        if (walletInfo?.address) {
-          const address = walletInfo.address;
-          document.getElementById("status").innerText = "✅ Adresse connectée : " + address;
-
-          // Envoi à Telegram WebApp (si appelé depuis Telegram)
-          if (window.Telegram && Telegram.WebApp) {
-            Telegram.WebApp.ready();
-            Telegram.WebApp.sendData(address);
-          }
-        } else {
-          document.getElementById("status").innerText = "❌ Aucune adresse récupérée.";
+        // Envoi automatique à Telegram WebApp si présent
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.ready();
+          Telegram.WebApp.sendData(address);
         }
-      } catch (error) {
-        console.error("Erreur connexion wallet:", error);
-        document.getElementById("status").innerText = "❌ Erreur de connexion au wallet.";
+      } else {
+        document.getElementById("status").textContent = "❌ Wallet non connecté";
       }
     });
   </script>
+
 </body>
 </html>
