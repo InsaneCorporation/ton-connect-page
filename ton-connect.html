@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Connect TON Wallet</title>
+  <script type="module">
+    import { TonConnectUI } from "https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('user_id');
+
+    const tonConnectUI = new TonConnectUI({
+      manifestUrl: "https://insanecorporation.github.io/ton-connect-page/tonconnect-manifest.json",
+      buttonRootId: "ton-connect-button"
+    });
+
+    tonConnectUI.uiOptions = { language: 'fr' };
+
+    tonConnectUI.connectionRestored.then(async () => {
+      const wallet = await tonConnectUI.wallet;
+      if (wallet && wallet.account) {
+        const address = wallet.account.address;
+        // Redirige vers ton bot via webhook / ou backend
+        fetch(`https://your-server.com/connect-wallet`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: userId, wallet: address })
+        }).then(() => {
+          document.body.innerHTML = `<h2>✅ Wallet connecté : ${address}</h2>`;
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="ton-connect-button"></div>
+</body>
+</html>
