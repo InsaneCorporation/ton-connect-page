@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🎟️ Acheter un ticket</title>
+  <meta charset="utf-8" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      background: #ff007f;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎟️ Événement Insane</h2>
+  <p id="eventInfo">Chargement...</p>
+  <button id="buy">Acheter avec Stars</button>
+
+  <script>
+    Telegram.WebApp.ready();
+
+    // On récupère l’eventId depuis l’URL (par ex. ?eventId=123456)
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get("eventId");
+
+    document.getElementById("eventInfo").innerText = `ID événement : ${eventId}`;
+
+    document.getElementById("buy").addEventListener("click", () => {
+      Telegram.WebApp.sendData(`buy_ticket_${eventId}`);
+      Telegram.WebApp.close();
+    });
+  </script>
+</body>
+</html>
